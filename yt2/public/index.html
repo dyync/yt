@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real-Time Logs</title>
+  <style>
+    #log-container {
+      font-family: monospace;
+      white-space: pre;
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Activity Logs</h1>
+  <div id="log-container"></div>
+  <button onclick="performAction()">Perform Action</button>
+
+  <script>
+    const logContainer = document.getElementById('log-container');
+    let eventSource;
+
+    function connectSSE() {
+      eventSource = new EventSource('/sse');
+
+      eventSource.onmessage = (event) => {
+        const logEntry = JSON.parse(event.data);
+        const logLine = `[${logEntry.timestamp}] ${logEntry.action}: ${JSON.stringify(logEntry.details)}`;
+        logContainer.innerHTML += logLine + '\n';
+        logContainer.scrollTop = logContainer.scrollHeight;
+      };
+
+      eventSource.onerror = () => {
+        logContainer.innerHTML += 'Connection lost. Reconnecting...\n';
+        setTimeout(connectSSE, 1000);
+      };
+    }
+
+    function performAction() {
+      fetch('/action', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'button_click',
+          details: { button: 'Perform Action' }
+        })
+      });
+    }
+
+    // Initialize connection
+    connectSSE();
+  </script>
+</body>
+</html>
