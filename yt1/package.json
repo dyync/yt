@@ -1,0 +1,16 @@
+{
+  "name": "yt-dlp-js-exec",
+  "version": "1.0.0",
+  "description": "yt-dlp download progress with JS exec",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  }
+}

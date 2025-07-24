@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>yt-dlp Download Progress (JS exec)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>yt-dlp Downloader</h1>
+    <input type="text" id="urlInput" placeholder="Enter YouTube URL">
+    <button id="downloadButton">Download</button>
+
+    <div id="progressBarContainer" class="hidden">
+      <div id="progressBarFill"></div>
+      <span id="progressText">0%</span>
+    </div>
+    <p id="statusMessage"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
